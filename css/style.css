@@ -30,6 +30,7 @@ body {
   min-height: 100vh;
   overflow-x: hidden;
   line-height: 1.5;
+  perspective: 1200px;
 }
 
 /* Animated gradient background */
@@ -96,6 +97,7 @@ body {
   max-width: 1100px;
   margin: 0 auto;
   padding: 0 24px;
+  transform-style: preserve-3d;
 }
 
 /* Header */
@@ -106,6 +108,16 @@ header {
   justify-content: space-between;
   position: relative;
   z-index: 10;
+  opacity: 0;
+  transform: translateY(-40px) rotateX(-25deg);
+  animation: headerIn 1.1s cubic-bezier(0.16, 1, 0.3, 1) 0.1s forwards;
+}
+
+@keyframes headerIn {
+  to {
+    opacity: 1;
+    transform: translateY(0) rotateX(0deg);
+  }
 }
 
 .logo {
@@ -131,15 +143,27 @@ header {
   place-items: center;
   box-shadow: 0 8px 24px rgba(124, 92, 255, 0.4);
   transform-style: preserve-3d;
-  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  animation: logoSpinIn 1.4s cubic-bezier(0.16, 1, 0.3, 1) 0.3s both;
 }
 .logo-icon:hover {
-  transform: rotateY(20deg) rotateX(10deg) scale(1.08);
+  transform: rotateY(25deg) rotateX(15deg) scale(1.12);
 }
 .logo-icon svg {
   width: 22px;
   height: 22px;
   fill: white;
+}
+
+@keyframes logoSpinIn {
+  0% {
+    opacity: 0;
+    transform: rotateY(-180deg) scale(0.3);
+  }
+  100% {
+    opacity: 1;
+    transform: rotateY(0) scale(1);
+  }
 }
 
 .stats-pill {
@@ -151,6 +175,7 @@ header {
   padding: 10px 20px;
   border-radius: 999px;
   font-size: 0.9rem;
+  transform: translateZ(40px);
 }
 .stats-pill span {
   color: var(--muted);
@@ -164,7 +189,8 @@ header {
 .hero {
   padding: 60px 0 40px;
   text-align: center;
-  perspective: 1000px;
+  perspective: 1400px;
+  transform-style: preserve-3d;
 }
 
 .hero-badge {
@@ -180,8 +206,15 @@ header {
   color: var(--accent2);
   margin-bottom: 28px;
   opacity: 0;
-  transform: translateY(20px);
-  animation: fadeUp 0.8s 0.2s forwards;
+  transform: translateY(60px) rotateX(40deg) scale(0.8);
+  animation: badgeIn 1s cubic-bezier(0.16, 1, 0.3, 1) 0.4s forwards;
+}
+
+@keyframes badgeIn {
+  to {
+    opacity: 1;
+    transform: translateY(0) rotateX(0) scale(1);
+  }
 }
 
 .hero h1 {
@@ -192,8 +225,23 @@ header {
   letter-spacing: -0.04em;
   margin-bottom: 20px;
   opacity: 0;
-  transform: translateY(30px);
-  animation: fadeUp 0.9s 0.35s forwards;
+  transform: translateY(80px) rotateX(55deg) scale(0.85);
+  transform-origin: center bottom;
+  animation: titleIn 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.55s forwards;
+}
+
+@keyframes titleIn {
+  0% {
+    opacity: 0;
+    transform: translateY(80px) rotateX(55deg) scale(0.85);
+  }
+  60% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) rotateX(0) scale(1);
+  }
 }
 
 .hero h1 .gradient {
@@ -203,6 +251,7 @@ header {
   -webkit-text-fill-color: transparent;
   background-clip: text;
   animation: gradientShift 6s ease infinite;
+  display: inline-block;
 }
 
 @keyframes gradientShift {
@@ -216,14 +265,14 @@ header {
   max-width: 520px;
   margin: 0 auto 40px;
   opacity: 0;
-  transform: translateY(20px);
-  animation: fadeUp 0.9s 0.5s forwards;
+  transform: translateY(40px) rotateX(30deg);
+  animation: fadeUp3d 1s cubic-bezier(0.16, 1, 0.3, 1) 0.75s forwards;
 }
 
-@keyframes fadeUp {
+@keyframes fadeUp3d {
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateY(0) rotateX(0);
   }
 }
 
@@ -234,8 +283,7 @@ header {
   gap: 40px;
   margin-bottom: 50px;
   flex-wrap: wrap;
-  opacity: 0;
-  animation: fadeUp 1s 0.65s forwards;
+  perspective: 1000px;
 }
 
 .progress-card {
@@ -249,17 +297,32 @@ header {
   gap: 24px;
   box-shadow: var(--shadow);
   transform-style: preserve-3d;
-  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.4s;
+  opacity: 0;
+  transform: translateY(100px) rotateX(-50deg) scale(0.7);
+  animation: progressIn 1.3s cubic-bezier(0.16, 1, 0.3, 1) 0.9s forwards;
+  transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.4s;
 }
 .progress-card:hover {
-  transform: translateY(-8px) rotateX(4deg);
-  box-shadow: 0 30px 60px -15px rgba(124, 92, 255, 0.25);
+  transform: translateY(-12px) rotateX(6deg) scale(1.02);
+  box-shadow: 0 35px 70px -15px rgba(124, 92, 255, 0.3);
+}
+
+@keyframes progressIn {
+  0% {
+    opacity: 0;
+    transform: translateY(100px) rotateX(-50deg) scale(0.7);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) rotateX(0) scale(1);
+  }
 }
 
 .ring-wrap {
   position: relative;
   width: 90px;
   height: 90px;
+  transform: translateZ(30px);
 }
 .ring-wrap svg {
   transform: rotate(-90deg);
@@ -278,7 +341,7 @@ header {
   stroke-linecap: round;
   stroke-dasharray: 251.2;
   stroke-dashoffset: 251.2;
-  transition: stroke-dashoffset 1.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition: stroke-dashoffset 1.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .ring-text {
   position: absolute;
@@ -303,8 +366,7 @@ header {
 /* Add goal form */
 .add-section {
   margin-bottom: 48px;
-  opacity: 0;
-  animation: fadeUp 1s 0.8s forwards;
+  perspective: 1000px;
 }
 
 .add-form {
@@ -317,10 +379,20 @@ header {
   gap: 8px;
   box-shadow: var(--shadow);
   transition: border-color 0.3s, box-shadow 0.3s;
+  opacity: 0;
+  transform: translateY(60px) rotateX(35deg) scale(0.92);
+  animation: formIn 1.1s cubic-bezier(0.16, 1, 0.3, 1) 1.05s forwards;
 }
 .add-form:focus-within {
   border-color: rgba(124, 92, 255, 0.5);
   box-shadow: 0 0 0 4px rgba(124, 92, 255, 0.12), var(--shadow);
+}
+
+@keyframes formIn {
+  to {
+    opacity: 1;
+    transform: translateY(0) rotateX(0) scale(1);
+  }
 }
 
 .add-form input {
@@ -350,16 +422,16 @@ header {
   display: flex;
   align-items: center;
   gap: 8px;
-  transition: transform 0.25s, box-shadow 0.25s, filter 0.25s;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s, filter 0.25s;
   box-shadow: 0 8px 24px rgba(124, 92, 255, 0.35);
 }
 .add-btn:hover {
-  transform: scale(1.03);
-  box-shadow: 0 12px 32px rgba(124, 92, 255, 0.5);
+  transform: scale(1.05) translateZ(10px);
+  box-shadow: 0 14px 36px rgba(124, 92, 255, 0.55);
   filter: brightness(1.1);
 }
 .add-btn:active {
-  transform: scale(0.98);
+  transform: scale(0.97);
 }
 .add-btn svg {
   width: 20px;
@@ -373,7 +445,8 @@ header {
   justify-content: space-between;
   margin-bottom: 24px;
   opacity: 0;
-  animation: fadeUp 1s 0.95s forwards;
+  transform: translateY(30px) rotateX(20deg);
+  animation: fadeUp3d 0.9s cubic-bezier(0.16, 1, 0.3, 1) 1.2s forwards;
 }
 .goals-header h2 {
   font-family: 'Space Grotesk', sans-serif;
@@ -398,16 +471,18 @@ header {
   padding: 8px 16px;
   border-radius: 8px;
   cursor: pointer;
-  transition: all 0.25s;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 .filter-tab.active {
   background: linear-gradient(135deg, var(--accent1), var(--accent2));
   color: white;
   box-shadow: 0 4px 12px rgba(124, 92, 255, 0.3);
+  transform: scale(1.05);
 }
 .filter-tab:hover:not(.active) {
   color: var(--text);
   background: rgba(255,255,255,0.05);
+  transform: scale(1.03);
 }
 
 .goals-grid {
@@ -415,9 +490,11 @@ header {
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 20px;
   padding-bottom: 80px;
+  perspective: 1200px;
+  transform-style: preserve-3d;
 }
 
-/* Goal card */
+/* Goal card - POWERFUL 3D ENTRANCE */
 .goal-card {
   background: var(--card);
   border: 1px solid var(--card-border);
@@ -427,13 +504,18 @@ header {
   position: relative;
   overflow: hidden;
   transform-style: preserve-3d;
-  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), 
+  transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), 
               box-shadow 0.4s,
               border-color 0.3s,
               opacity 0.4s;
   opacity: 0;
-  transform: translateY(30px) scale(0.96);
-  animation: cardIn 0.6s forwards;
+  transform: 
+    translateY(120px) 
+    translateZ(-200px) 
+    rotateX(60deg) 
+    rotateY(-25deg) 
+    scale(0.6);
+  animation: card3dIn 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 .goal-card::before {
   content: '';
@@ -443,27 +525,67 @@ header {
   background: linear-gradient(90deg, var(--accent1), var(--accent2), var(--accent3));
   opacity: 0;
   transition: opacity 0.3s;
+  transform: translateZ(1px);
 }
 .goal-card:hover {
-  transform: translateY(-10px) rotateX(3deg) rotateY(-2deg);
-  box-shadow: 0 25px 50px -12px rgba(0,0,0,0.4), 0 0 0 1px rgba(124,92,255,0.2);
-  border-color: rgba(124, 92, 255, 0.25);
+  transform: translateY(-14px) rotateX(8deg) rotateY(-4deg) scale(1.02);
+  box-shadow: 
+    0 30px 60px -12px rgba(0,0,0,0.5), 
+    0 0 0 1px rgba(124,92,255,0.25),
+    0 20px 40px -10px rgba(124, 92, 255, 0.2);
+  border-color: rgba(124, 92, 255, 0.3);
 }
 .goal-card:hover::before {
   opacity: 1;
 }
 .goal-card.completed {
-  opacity: 0.7;
+  opacity: 0.75;
 }
 .goal-card.completed .goal-title {
   text-decoration: line-through;
   color: var(--muted);
 }
 
-@keyframes cardIn {
-  to {
+/* Different entrance angles for variety */
+.goal-card:nth-child(3n+1) {
+  --ry: -30deg;
+}
+.goal-card:nth-child(3n+2) {
+  --ry: 22deg;
+}
+.goal-card:nth-child(3n+3) {
+  --ry: -8deg;
+}
+
+@keyframes card3dIn {
+  0% {
+    opacity: 0;
+    transform: 
+      translateY(120px) 
+      translateZ(-220px) 
+      rotateX(65deg) 
+      rotateY(var(--ry, -25deg)) 
+      scale(0.55);
+  }
+  55% {
     opacity: 1;
-    transform: translateY(0) scale(1);
+  }
+  78% {
+    transform: 
+      translateY(-14px) 
+      translateZ(30px) 
+      rotateX(-5deg) 
+      rotateY(calc(var(--ry, -25deg) * 0.15)) 
+      scale(1.04);
+  }
+  100% {
+    opacity: 1;
+    transform: 
+      translateY(0) 
+      translateZ(0) 
+      rotateX(0) 
+      rotateY(0) 
+      scale(1);
   }
 }
 
@@ -473,6 +595,7 @@ header {
   justify-content: space-between;
   gap: 12px;
   margin-bottom: 16px;
+  transform: translateZ(20px);
 }
 
 .goal-check {
@@ -485,17 +608,18 @@ header {
   display: grid;
   place-items: center;
   flex-shrink: 0;
-  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
   position: relative;
 }
 .goal-check:hover {
   border-color: var(--success);
-  transform: scale(1.1);
+  transform: scale(1.15) rotateZ(8deg);
 }
 .goal-check.checked {
   background: linear-gradient(135deg, var(--success), #00c48c);
   border-color: transparent;
   box-shadow: 0 4px 16px rgba(0, 229, 160, 0.4);
+  transform: scale(1.1);
 }
 .goal-check svg {
   width: 14px;
@@ -504,12 +628,12 @@ header {
   stroke-width: 3;
   fill: none;
   opacity: 0;
-  transform: scale(0.5);
-  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transform: scale(0.3) rotate(-90deg);
+  transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 .goal-check.checked svg {
   opacity: 1;
-  transform: scale(1);
+  transform: scale(1) rotate(0deg);
 }
 
 .goal-title {
@@ -528,7 +652,8 @@ header {
   padding: 4px;
   border-radius: 8px;
   opacity: 0;
-  transition: all 0.25s;
+  transition: all 0.3s;
+  transform: translateZ(10px);
 }
 .goal-card:hover .goal-delete {
   opacity: 1;
@@ -536,6 +661,7 @@ header {
 .goal-delete:hover {
   color: var(--danger);
   background: rgba(255, 92, 122, 0.1);
+  transform: scale(1.15) rotate(8deg);
 }
 .goal-delete svg {
   width: 18px;
@@ -549,6 +675,7 @@ header {
   margin-top: 16px;
   padding-top: 16px;
   border-top: 1px solid rgba(255,255,255,0.06);
+  transform: translateZ(15px);
 }
 
 .goal-date {
@@ -586,6 +713,9 @@ header {
   text-align: center;
   padding: 60px 20px;
   color: var(--muted);
+  opacity: 0;
+  transform: translateY(40px) rotateX(25deg);
+  animation: fadeUp3d 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 .empty-state svg {
   width: 80px;
@@ -604,7 +734,7 @@ header {
   position: fixed;
   bottom: 32px;
   left: 50%;
-  transform: translateX(-50%) translateY(100px);
+  transform: translateX(-50%) translateY(120px) rotateX(40deg) scale(0.8);
   background: linear-gradient(135deg, rgba(20,20,35,0.95), rgba(30,30,50,0.95));
   border: 1px solid rgba(255,255,255,0.1);
   backdrop-filter: blur(20px);
@@ -615,13 +745,14 @@ header {
   box-shadow: 0 20px 40px rgba(0,0,0,0.4);
   z-index: 100;
   opacity: 0;
-  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
   display: flex;
   align-items: center;
   gap: 10px;
+  transform-style: preserve-3d;
 }
 .toast.show {
-  transform: translateX(-50%) translateY(0);
+  transform: translateX(-50%) translateY(0) rotateX(0) scale(1);
   opacity: 1;
 }
 .toast.success { border-color: rgba(0, 229, 160, 0.3); }
@@ -643,4 +774,18 @@ header {
   .add-form { flex-direction: column; }
   .add-btn { padding: 16px; justify-content: center; }
   .goals-header { flex-direction: column; gap: 16px; align-items: flex-start; }
+  
+  .goal-card {
+    transform: translateY(80px) translateZ(-100px) rotateX(40deg) scale(0.75);
+  }
+  @keyframes card3dIn {
+    0% {
+      opacity: 0;
+      transform: translateY(80px) translateZ(-100px) rotateX(40deg) scale(0.75);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0) translateZ(0) rotateX(0) scale(1);
+    }
+  }
 }
